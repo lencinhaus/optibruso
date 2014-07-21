@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name optibrusoApp
+ * @name optibruso
  * @description
- * # optibrusoApp
+ * # optibruso
  *
  * Main module of the application.
  */
 angular
-  .module('optibrusoApp', [
+  .module('optibruso', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -21,12 +21,16 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/simulations-list.html',
+        controller: 'SimulationsListCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+      .when('/simulation/new', {
+        templateUrl: 'views/simulation-edit.html',
+        controller: 'SimulationEditCtrl'
+      })
+      .when('/simulation/:id/edit', {
+        templateUrl: 'views/simulation-edit.html',
+        controller: 'SimulationEditCtrl'
       })
       .otherwise({
         redirectTo: '/'

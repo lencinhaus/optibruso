@@ -1,0 +1,46 @@
+<h1>Simulazioni</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Ultima modifica</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="simulation in simulations">
+			<td style="width: 50%">{{simulation.name}}</td>
+			<td>{{simulation.modified | date}}</td>
+			<td>
+				<div class="btn-group btn-group-xs">
+					<button type="button" class="btn btn-danger" ng-click="remove(simulation.id)">
+						<span class="glyphicon glyphicon-remove"></span>
+
+						Cancella
+					</button>
+					<a class="btn btn-default" href="#/simulation/{{simulation.id}}/edit">
+						<span class="glyphicon glyphicon-pencil"></span>
+
+						Modifica
+					</a>
+					<a class="btn btn-primary" href="#/simulation/{{simulation.id}}">
+						<span class="glyphicon glyphicon-play"></span>
+
+						Avvia
+					</a>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="3">
+				<a class="btn btn-primary" href="#/simulation/new">
+					<span class="glyphicon glyphicon-plus"></span>
+
+						Crea nuova
+				</a>
+			</td>
+		</tr>
+	</tfoot>
+</table>

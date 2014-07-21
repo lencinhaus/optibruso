@@ -1,0 +1,16 @@
+<h1 ng-if="simulation.id">Simulazione {{simulation.name}}</h1>
+<h1 ng-if="!simulation.id">Nuova Simulazione</h1>
+
+<form name="form" role="form" novalidate>
+	<div class="form-group" ng-class="{'has-error': form.simulationName.$dirty &amp;&amp; form.simulationName.$invalid, 'has-success': form.simulationName.$dirty &amp;&amp; form.simulationName.$valid, 'has-feedback': form.simulationName.$dirty}">
+		<label for="simulation-name">Nome</label>
+		<input type="text" class="form-control" ng-model="simulation.name" name="simulationName" id="simulation-name" placeholder="Nome della simulazione" required />
+		<span class="help-block danger" ng-show="form.simulationName.$dirty &amp;&amp; form.simulationName.$invalid">Inserire un nome per la simulaione</span>
+		<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="form.simulationName.$dirty &amp;&amp; form.simulationName.$valid"></span>
+		<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="form.simulationName.$dirty &amp;&amp; form.simulationName.$invalid"></span>
+	</div>
+	<div class="form-group">
+		<label for="simulation-budget">Budget ASL</label>
+		<input type="text" class="form-control" ng-model="simulation.budget" id="simulation-budget" placeholder="Budget ASL in Euro" required />
+	</div>
+</form>
