@@ -9,8 +9,11 @@
 		<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="form.simulationName.$dirty &amp;&amp; form.simulationName.$valid"></span>
 		<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="form.simulationName.$dirty &amp;&amp; form.simulationName.$invalid"></span>
 	</div>
-	<div class="form-group">
+	<div class="form-group" ng-class="{'has-error': form.simulationBudget.$dirty &amp;&amp; form.simulationBudget.$invalid, 'has-success': form.simulationBudget.$dirty &amp;&amp; form.simulationName.$valid, 'has-feedback': form.simulationBudget.$dirty}">
 		<label for="simulation-budget">Budget ASL</label>
-		<input type="text" class="form-control" ng-model="simulation.budget" id="simulation-budget" placeholder="Budget ASL in Euro" required />
+		<input type="number" class="form-control" ng-model="simulation.budget" id="simulation-budget" name="simulationBudget" placeholder="Budget ASL in Euro" required min="0" />
+		<span class="help-block danger" ng-show="form.simulationBudget.$dirty &amp;&amp; form.simulationBudget.$invalid">Il budget deve essere un numero decimale non negativo</span>
+		<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="form.simulationBudget.$dirty &amp;&amp; form.simulationBudget.$valid"></span>
+		<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="form.simulationBudget.$dirty &amp;&amp; form.simulationBudget.$invalid"></span>
 	</div>
 </form>
