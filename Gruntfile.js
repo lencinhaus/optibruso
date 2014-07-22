@@ -44,7 +44,7 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       sass: {
-        files: ['.<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['sass:server', 'autoprefixer']
       },
       gruntfile: {
@@ -367,6 +367,15 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
           dest: '<%= config.dist %>'
+        }, {
+          expand: true,
+          cwd: 'server',
+          src: [
+            '*.php',
+            '.htaccess',
+            'vendor/**/*'
+          ],
+          dest: '<%= config.dist %>/server'
         }]
       },
       styles: {

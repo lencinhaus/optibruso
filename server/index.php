@@ -22,6 +22,9 @@ class App {
     Flight::route('POST /simulation/@id.json', array($this, 'save_simulation'));
     Flight::route('DELETE /simulation/@id.json', array($this, 'delete_simulation'));
 
+    // fake latency for debug
+    if(DEBUG) sleep(1);
+
     // start Flight
     Flight::start();
   }

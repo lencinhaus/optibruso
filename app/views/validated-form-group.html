@@ -1,4 +1,4 @@
-<div class="form-group" ng-class="{'has-error': showInvalid(), 'has-success': showValid(), 'has-feedback': show}">
-	<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="showValid()"></span>
-	<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="showInvalid()"></span>
+<div class="form-group" ng-class="{'has-error': showInvalid(), 'has-success': showValid(), 'has-feedback': feedback &amp;&amp; show}">
+	<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="feedback &amp;&amp; showValid()"></span>
+	<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="feedback &amp;&amp; showInvalid()"></span>
 </div>

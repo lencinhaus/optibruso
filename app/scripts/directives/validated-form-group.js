@@ -17,7 +17,7 @@
     transclude: true,
     templateUrl: 'views/validated-form-group.html',
     scope: {
-      small: '='
+      feedback: '='
     },
     link: function($scope, $element, $attrs, formCtrl, $transclude) {
       var name;

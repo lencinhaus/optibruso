@@ -9,7 +9,13 @@
  */
 angular.module('optibruso')
   .controller('SimulationsListCtrl', function ($scope, Simulation) {
+    $scope.ready = false;
+
     $scope.simulations = Simulation.query();
+
+    $scope.simulations.$promise.then(function() {
+      $scope.ready = true;
+    });
 
     $scope.remove = function(id) {
       Simulation.delete({

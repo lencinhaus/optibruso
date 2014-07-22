@@ -1,0 +1,39 @@
+<alert type="info" ng-show="!ready">Caricamento</alert>
+
+<div ng-show="ready">
+  <h1>Simulazione {{simulation.name}} <a role="button" class="btn btn-default btn-sm" href="#/simulation/{{simulation.id}}/edit">
+    <span class="glyphicon glyphicon-pencil"></span>
+
+    Modifica
+  </a></h1>
+
+  <alert type="danger" ng-repeat="error in errors">{{error}}</alert>
+
+  <div ng-show="simulated">
+
+    <p>Profitto totale: {{simulated.profit | currency}}</p>
+    <p>Budget eroso totale: {{simulated.refund | currency}} su {{simulation.budget | currency}}</p>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Prestazione</th>
+          <th>Profitto per unità di budget</th>
+          <th>Quantità</th>
+          <th>Profitto</th>
+          <th>Budget Eroso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="result in simulated.results">
+          <td>{{simulation.services[$index].name}}</td>
+          <td>{{result.profitPerUnitOfRefund}}</td>
+          <td>{{result.quantity}}</td>
+          <td>{{result.profit | currency}}</td>
+          <td>{{result.refund | currency}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
