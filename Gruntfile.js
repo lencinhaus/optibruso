@@ -1,4 +1,3 @@
-// Generated on 2014-07-20 using generator-angular 0.9.5
 'use strict';
 
 // # Globbing
@@ -71,11 +70,23 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
+      proxies: [{
+        context: '/server',
+        host: 'localhost',
+        port: 80,
+        https: false,
+        changeOrigin: false,
+        xforward: true,
+        rewrite: {
+          '^/server': '/optibruso-server'
+        }
+      }],
       livereload: {
         options: {
           open: true,
           middleware: function (connect) {
             return [
+              require('grunt-connect-proxy/lib/utils').proxyRequest,
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -399,6 +410,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'configureProxies:server',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',

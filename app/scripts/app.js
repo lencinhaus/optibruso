@@ -11,14 +11,12 @@
 angular
   .module('optibruso', [
     'ngAnimate',
-    'ngCookies',
     'ngResource',
     'ngRoute',
-    'ngSanitize',
-    'ngTouch',
     'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
+    // configure routes
     $routeProvider
       .when('/', {
         templateUrl: 'views/simulations-list.html',
@@ -31,6 +29,10 @@ angular
       .when('/simulation/:id/edit', {
         templateUrl: 'views/simulation-edit.html',
         controller: 'SimulationEditCtrl'
+      })
+      .when('/simulation/:id', {
+        templateUrl: 'views/simulation-run.html',
+        controller: 'SimulationRunCtrl'
       })
       .otherwise({
         redirectTo: '/'

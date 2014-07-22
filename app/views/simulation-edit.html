@@ -1,19 +1,106 @@
-<h1 ng-if="simulation.id">Simulazione {{simulation.name}}</h1>
-<h1 ng-if="!simulation.id">Nuova Simulazione</h1>
+<h1 ng-show="simulation.id">Modifica Simulazione</h1>
+<h1 ng-show="!simulation.id">Nuova Simulazione</h1>
 
 <form name="form" role="form" novalidate>
-	<div class="form-group" ng-class="{'has-error': form.simulationName.$dirty &amp;&amp; form.simulationName.$invalid, 'has-success': form.simulationName.$dirty &amp;&amp; form.simulationName.$valid, 'has-feedback': form.simulationName.$dirty}">
-		<label for="simulation-name">Nome</label>
-		<input type="text" class="form-control" ng-model="simulation.name" name="simulationName" id="simulation-name" placeholder="Nome della simulazione" required />
-		<span class="help-block danger" ng-show="form.simulationName.$dirty &amp;&amp; form.simulationName.$invalid">Inserire un nome per la simulaione</span>
-		<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="form.simulationName.$dirty &amp;&amp; form.simulationName.$valid"></span>
-		<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="form.simulationName.$dirty &amp;&amp; form.simulationName.$invalid"></span>
-	</div>
-	<div class="form-group" ng-class="{'has-error': form.simulationBudget.$dirty &amp;&amp; form.simulationBudget.$invalid, 'has-success': form.simulationBudget.$dirty &amp;&amp; form.simulationName.$valid, 'has-feedback': form.simulationBudget.$dirty}">
-		<label for="simulation-budget">Budget ASL</label>
-		<input type="number" class="form-control" ng-model="simulation.budget" id="simulation-budget" name="simulationBudget" placeholder="Budget ASL in Euro" required min="0" />
-		<span class="help-block danger" ng-show="form.simulationBudget.$dirty &amp;&amp; form.simulationBudget.$invalid">Il budget deve essere un numero decimale non negativo</span>
-		<span class="glyphicon glyphicon-ok form-control-feedback" ng-show="form.simulationBudget.$dirty &amp;&amp; form.simulationBudget.$valid"></span>
-		<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="form.simulationBudget.$dirty &amp;&amp; form.simulationBudget.$invalid"></span>
+	<validated-form-group>
+		<label class="control-label" for="simulation-name">Nome</label>
+		<input type="text" class="form-control" ng-model="simulation.name" name="name" id="simulation-name" placeholder="Nome della simulazione" required />
+		<validation-error>Inserire un nome per la simulazione</validation-error>
+	</validated-form-group>
+
+	<validated-form-group>
+		<label class="control-label" for="simulation-budget">Budget ASL</label>
+		<input type="number" class="form-control" ng-model="simulation.budget" id="simulation-budget" name="budget" placeholder="Budget ASL in Euro" required min="0" />
+		<validation-error>Il budget deve essere un numero decimale non negativo</validation-error>
+	</validated-form-group>
+	<h2>Prestazioni</h2>
+	<table class="table table-striped form-inline">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Ticket</th>
+				<th>Rimborso ASL</th>
+				<th>Guadagno Privato</th>
+				<th>Numero Minimo</th>
+				<th>Numero Massimo</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="service in simulation.services" ng-form="serviceForm">
+				<td>
+					<validated-form-group field="serviceForm.name">
+						<label class="control-label sr-only">Nome</label>
+						<input type="text" class="form-control input-sm" ng-model="service.name" name="name"required />
+						<validation-error type="required">Inserire il nome della prestazione</validation-error>
+					</validated-form-group>
+				</td>
+				<td>
+					<validated-form-group field="serviceForm.ticket">
+						<label class="control-label sr-only">Ticket</label>
+						<input type="number" class="form-control input-sm" ng-model="service.ticket" name="ticket"  required min="0" />
+						<validation-error>Inserire un numero non negativo</validation-error>
+					</validated-form-group>
+				</td>
+				<td>
+					<validated-form-group field="serviceForm.refund">
+						<label class="control-label sr-only">Rimborso ASL</label>
+						<input type="number" class="form-control input-sm" ng-model="service.refund" name="refund"  required min="0" />
+						<validation-error>Inserire un numero non negativo</validation-error>
+					</validated-form-group>
+				</td>
+				<td>
+					<validated-form-group field="serviceForm.privateGain">
+						<label class="control-label sr-only">Guadagno Privato</label>
+						<input type="number" class="form-control input-sm" ng-model="service.privateGain" name="privateGain"  required min="0" />
+						<validation-error>Inserire un numero non negativo</validation-error>
+					</validated-form-group>
+				</td>
+				<td>
+					<validated-form-group field="serviceForm.minimum">
+						<label class="control-label sr-only">Numero Minimo</label>
+						<input type="number" class="form-control input-sm" ng-model="service.minimum" name="minimum" required min="0" />
+						<validation-error>Inserire un numero non negativo</validation-error>
+					</validated-form-group>
+				</td>
+				<td>
+					<validated-form-group field="serviceForm.maximum">
+						<label class="control-label sr-only">Numero Massimo</label>
+						<input type="number" class="form-control input-sm" ng-model="service.maximum" name="maximum" min="0" />
+						<validation-error>Inserire un numero non negativo</validation-error>
+					</validated-form-group>
+				</td>
+				<td>
+					<button type="button" class="btn btn-danger btn-sm" ng-click="removeService($index)" ng-if="$index > 0">
+						<span class="glyphicon glyphicon-remove"></span>
+
+						Cancella
+					</button>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="7">
+					<button type="button" class="btn btn-primary" ng-click="addService()">
+						<span class="glyphicon glyphicon-plus"></span>
+
+						Aggiungi Prestazione
+					</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	<div>
+		<button type="button" class="btn btn-default" ng-click="saveAndContinue()">
+			<span class="glyphicon glyphicon-disk"></span>
+
+			Salva e Continua
+		</button>
+		<button type="button" class="btn btn-primary" ng-click="saveAndRun()">
+			<span class="glyphicon glyphicon-play"></span>
+
+			Salva ed Esegui
+		</button>
 	</div>
 </form>

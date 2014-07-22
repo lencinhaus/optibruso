@@ -1,0 +1,1 @@
+* compile templates during build: https://github.com/ericclemmons/grunt-angular-templates
