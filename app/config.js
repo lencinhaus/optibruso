@@ -1,0 +1,3 @@
+var OptiBrusoConfig = {
+  serverUrlPrefix: '/server'
+};

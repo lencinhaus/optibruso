@@ -16,7 +16,7 @@
   			<td>{{simulation.modified | date}}</td>
   			<td>
   				<div class="btn-group btn-group-xs">
-  					<button type="button" class="btn btn-danger" ng-click="remove(simulation.id)">
+  					<button type="button" class="btn btn-danger" ob-confirm="La simulazione sarà cancellata in modo permanente. Procedere?" ob-confirmed="remove(simulation.id)">
   						<span class="glyphicon glyphicon-remove"></span>
 
   						Cancella

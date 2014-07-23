@@ -14,6 +14,7 @@ angular.module('optibruso')
 
   return {
     require: 'ngModel',
+    restrict: 'A',
     link: function(scope, elm, attrs, ctrl) {
       ctrl.$parsers.unshift(function(viewValue) {
         if (INTEGER_REGEXP.test(viewValue)) {

@@ -8,7 +8,7 @@
  * Controller of the simulations list
  */
 angular.module('optibruso')
-  .controller('SimulationsListCtrl', function ($scope, Simulation) {
+  .controller('SimulationsListCtrl', function ($scope, $route, Simulation) {
     $scope.ready = false;
 
     $scope.simulations = Simulation.query();
@@ -21,7 +21,7 @@ angular.module('optibruso')
       Simulation.delete({
         id: id
       }, function() {
-        $scope.simulations = Simulation.query();
+        $route.reload();
       });
     };
   });

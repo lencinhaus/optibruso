@@ -12,8 +12,9 @@ angular.module('optibruso')
   .factory('Simulation', function($resource, JsonDateParser) {
     var dateFields = ['modified'];
     var responseTransformer = JsonDateParser.createResourceResponseTransformer(dateFields);
+    var url = OptiBrusoConfig.serverUrlPrefix + '/simulation/:id.json';
 
-    return $resource('/server/simulation/:id.json', {
+    return $resource(url, {
       id: '@id'
     }, {
       query: {

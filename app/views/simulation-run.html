@@ -11,8 +11,12 @@
 
   <div ng-show="simulated">
 
-    <p>Profitto totale: {{simulated.profit | currency}}</p>
-    <p>Budget eroso totale: {{simulated.refund | currency}} su {{simulation.budget | currency}}</p>
+    <dl>
+      <dt>Profitto totale:</dt>
+      <dd>{{simulated.profit | currency}}</dd>
+      <dt>Budget investito totale:</dt>
+      <dd>{{simulated.refund | currency}} / {{simulation.budget | currency}}</dd>
+    </dl>
 
     <table class="table table-striped">
       <thead>
@@ -21,14 +25,14 @@
           <th>Profitto per unità di budget</th>
           <th>Quantità</th>
           <th>Profitto</th>
-          <th>Budget Eroso</th>
+          <th>Budget investito</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="result in simulated.results">
-          <td>{{simulation.services[$index].name}}</td>
-          <td>{{result.profitPerUnitOfRefund}}</td>
-          <td>{{result.quantity}}</td>
+          <td>{{simulation.services[result.index].name}}</td>
+          <td>{{result.profitPerUnitOfRefund | number}}</td>
+          <td>{{result.quantity | number}}</td>
           <td>{{result.profit | currency}}</td>
           <td>{{result.refund | currency}}</td>
         </tr>

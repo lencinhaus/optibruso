@@ -31,32 +31,30 @@ angular.module('optibruso')
 
         // initialize data
         var results = [];
-        var indices = [];
 
         angular.forEach(simulation.services, function(service, index) {
           var profitPerUnitOfRefund = (service.ticket + service.refund + service.privateGain - service.cost) / service.refund;
           var result = {
             profitPerUnitOfRefund: profitPerUnitOfRefund,
-            quantity: service.minimum
+            quantity: service.minimum,
+            index: index
           };
 
           totalRefund += service.minimum * service.refund;
 
           results.push(result);
-          indices.push(index);
         });
 
-        // sort service indices by decreasing profit per unit of refund
-        indices.sort(function(a, b) {
-          return results[b].profitPerUnitOfRefund - results[a].profitPerUnitOfRefund;
+        // sort results by decreasing profit per unit of refund
+        results.sort(function(a, b) {
+          return b.profitPerUnitOfRefund - a.profitPerUnitOfRefund;
         });
 
         // increase quantities of services with the maximum profit
         var i = 0;
-        while(i < indices.length && totalRefund < simulation.budget) {
-          var index = indices[i++];
-          var service = simulation.services[index];
-          var result = results[index];
+        while(i < results.length && totalRefund < simulation.budget) {
+          var result = results[i++];
+          var service = simulation.services[result.index];
 
           if(result.profitPerUnitOfRefund < 0) break;
 

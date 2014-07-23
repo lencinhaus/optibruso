@@ -317,7 +317,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= config.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
+          src: ['*.html'],
           dest: '<%= config.dist %>'
         }]
       }
@@ -353,7 +353,6 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
-            'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]
@@ -376,6 +375,11 @@ module.exports = function (grunt) {
             'vendor/**/*'
           ],
           dest: '<%= config.dist %>/server'
+        }, {
+          expand: true,
+          cwd: 'build',
+          src: ['**/*'],
+          dest: '<%= config.dist %>'
         }]
       },
       styles: {
@@ -406,6 +410,19 @@ module.exports = function (grunt) {
       unit: {
         configFile: 'test/karma.conf.js',
         singleRun: true
+      }
+    },
+
+    ngtemplates: {
+      dist: {
+        cwd: '<%= config.app %>',
+        src: 'views/**.html',
+        dest: '.tmp/templates.js',
+        options: {
+          usemin: 'scripts/scripts.js',
+          module: 'optibruso',
+          htmlmin: '<%= htmlmin.dist.options %>'
+        }
       }
     }
   });
@@ -446,6 +463,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
+    'ngtemplates',
     'concat',
     'ngAnnotate',
     'copy:dist',
