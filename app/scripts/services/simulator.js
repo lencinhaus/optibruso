@@ -56,11 +56,19 @@ angular.module('optibruso')
           var result = results[i++];
           var service = simulation.services[result.index];
 
-          if(result.profitPerUnitOfRefund < 0) break;
+          if(result.profitPerUnitOfRefund < 0) {
+            break;
+          }
 
           var maxQuantity = Math.floor((simulation.budget - totalRefund) / service.refund);
-          if(service.maximum) maxQuantity = Math.min(maxQuantity, service.maximum - result.quantity);
-          if(maxQuantity <= 0) continue;
+
+          if(service.maximum) {
+            maxQuantity = Math.min(maxQuantity, service.maximum - result.quantity);
+          }
+
+          if(maxQuantity <= 0) {
+            continue;
+          }
 
           result.quantity += maxQuantity;
           totalRefund += maxQuantity * service.refund;
@@ -68,8 +76,8 @@ angular.module('optibruso')
 
         // calculate service refunds and profits and total profit
         var totalProfit = 0;
-        angular.forEach(simulation.services, function(service, index) {
-          var result = results[index];
+        angular.forEach(results, function(result) {
+          var service = simulation.services[result.index];
           result.refund = result.quantity * service.refund;
           result.profit = result.profitPerUnitOfRefund * result.refund;
           totalProfit += result.profit;

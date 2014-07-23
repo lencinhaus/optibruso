@@ -17,7 +17,9 @@ angular.module('optibruso')
 
     $scope.simulation.$promise.then(function() {
       $scope.errors = Simulator.check($scope.simulation);
-      if($scope.errors.length == 0) $scope.simulated = Simulator.run($scope.simulation);
+      if($scope.errors.length === 0) {
+        $scope.simulated = Simulator.run($scope.simulation);
+      }
       $scope.ready = true;
     });
   });

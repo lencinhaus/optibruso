@@ -9,7 +9,7 @@
  * Shows a bootstrap modal dialog for confirmation
  */
 angular.module('optibruso')
- .directive('obConfirm', function($modal, $log) {
+ .directive('obConfirm', function($modal) {
   return {
     restrict: 'A',
     scope: {
@@ -17,7 +17,9 @@ angular.module('optibruso')
     },
     link: function(scope, elm, attrs) {
       var message = attrs.obConfirm;
-      if(!message) message = 'Proceed?';
+      if(!message) {
+        message = 'Proceed?';
+      }
 
       elm.on('click', function() {
         var modalInstance = $modal.open({

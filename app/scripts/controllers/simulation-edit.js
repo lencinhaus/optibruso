@@ -39,7 +39,9 @@ angular.module('optibruso')
       $scope.saving = true;
       Simulation.save($scope.simulation, function() {
         $scope.saving = false;
-        if(cb) cb.apply(this, arguments);
+        if(cb) {
+          cb.apply(this, arguments);
+        }
       });
 
       return true;

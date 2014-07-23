@@ -22,19 +22,19 @@
       <thead>
         <tr>
           <th>Prestazione</th>
-          <th>Profitto per unità di budget</th>
-          <th>Quantità</th>
-          <th>Profitto</th>
-          <th>Budget investito</th>
+          <th class="text-right">Profitto per unità di budget</th>
+          <th class="text-right">Quantità</th>
+          <th class="text-right">Profitto</th>
+          <th class="text-right">Budget investito</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="result in simulated.results">
           <td>{{simulation.services[result.index].name}}</td>
-          <td>{{result.profitPerUnitOfRefund | number}}</td>
-          <td>{{result.quantity | number}}</td>
-          <td>{{result.profit | currency}}</td>
-          <td>{{result.refund | currency}}</td>
+          <td class="text-right">{{result.profitPerUnitOfRefund | currency}}</td>
+          <td class="text-right">{{result.quantity | number}}</td>
+          <td class="text-right">{{result.profit | currency}}</td>
+          <td class="text-right">{{result.refund | currency}}</td>
         </tr>
       </tbody>
     </table>
