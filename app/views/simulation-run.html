@@ -7,15 +7,25 @@
     Modifica
   </a></h1>
 
-  <alert type="danger" ng-repeat="error in errors">{{error}}</alert>
+  <progressbar ng-show="!simulated" value="progress" class="progress-striped active" animate="false">{{progress}}%</progressbar>
 
   <div ng-show="simulated">
 
+    <div style="margin-bottom: 20px;">
+      <h3>Tipo soluzione:</h3>
+      <div class="btn-group">
+        <label class="btn btn-primary" ng-model="solutionType" btn-radio="'approximate'">Approssimata</label>
+        <label class="btn btn-primary" ng-model="solutionType" btn-radio="'exact'">Esatta</label>
+      </div>
+    </div>
+
     <dl>
-      <dt>Profitto totale:</dt>
+      <dt>Fatturato totale:</dt>
+      <dd>{{simulated.gain | currency}}</dd>
+      <dt>Utili totali:</dt>
       <dd>{{simulated.profit | currency}}</dd>
       <dt>Budget investito totale:</dt>
-      <dd>{{simulated.refund | currency}} / {{simulation.budget | currency}}</dd>
+      <dd ng-class="{'text-danger': simulated.refund > simulation.budget}">{{simulated.refund | currency}} / {{simulation.budget | currency}}</dd>
     </dl>
 
     <table class="table table-striped">
@@ -24,7 +34,8 @@
           <th>Prestazione</th>
           <th class="text-right">Profitto per unità di budget</th>
           <th class="text-right">Quantità</th>
-          <th class="text-right">Profitto</th>
+          <th class="text-right">Fatturato</th>
+          <th class="text-right">Utili</th>
           <th class="text-right">Budget investito</th>
         </tr>
       </thead>
@@ -33,6 +44,7 @@
           <td>{{simulation.services[result.index].name}}</td>
           <td class="text-right">{{result.profitPerUnitOfRefund | currency}}</td>
           <td class="text-right">{{result.quantity | number}}</td>
+          <td class="text-right">{{result.gain | currency}}</td>
           <td class="text-right">{{result.profit | currency}}</td>
           <td class="text-right">{{result.refund | currency}}</td>
         </tr>

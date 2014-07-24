@@ -66,8 +66,7 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       proxies: [{
@@ -252,36 +251,31 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%= config.dist %>/{,*/}*.html'],
       css: ['<%= config.dist %>/styles/{,*/}*.css'],
+      worker: ['<%= config.dist %>/scripts/*.js'],
       options: {
-        assetsDirs: ['<%= config.dist %>','<%= config.dist %>/images']
+        assetsDirs: ['<%= config.dist %>','<%= config.dist %>/images'],
+        patterns: {
+          worker: [
+            [
+              /new Worker\(['"]([^"']+)['"]/gm,
+              'Update the Workers to reference our concat/min/revved script files'
+            ]
+          ]
+        }
       }
     },
 
-    // The following *-min tasks will produce minified files in the dist folder
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= config.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= config.dist %>/scripts/scripts.js': [
-    //         '<%= config.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
+    // also uglify web worker files that are not processed by usemin
+    uglify: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.app %>/scripts/workers',
+          src: '*.js',
+          dest: '<%= config.dist%>/scripts/workers'
+        }]
+      }
+    },
 
     imagemin: {
       dist: {
